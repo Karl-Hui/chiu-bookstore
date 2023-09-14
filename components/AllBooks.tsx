@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import Book from './Book';
 import { BookProps } from '@/types/bookTpyes';
@@ -28,7 +28,10 @@ const AllBook = () => {
         })}
       </div>
       {books?.length === 0 && (
-        <div>No book yes. Please press New Book button to your first book!</div>
+        <div className={styles.message}>
+          No books available yet. Please press the "New Book" button to add your
+          first book to the collection!
+        </div>
       )}
     </>
   );
