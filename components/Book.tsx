@@ -75,7 +75,7 @@ const Book = (props: BookProps) => {
           show={isShowUpdate}
           onCancel={modalOnCancelHandler}
           onUpdate={updateHandler}
-          title={'Update Book'}
+          title="Update Book"
         ></Modal>
       }
     </React.Fragment>
