@@ -5,19 +5,11 @@ import { useState } from 'react';
 
 import { updateBook } from '../store/bookSlice';
 import { setInitValue, cleanInputValue } from '../store/inputSlice';
+import { BookProps } from '@/types/bookTpyes';
 
 import Button from './UIElements/Button';
 import styles from './Book.module.css';
 import Modal from './UIElements/Modal';
-
-interface BookProps {
-  id: string;
-  name: string;
-  price: number;
-  category: string;
-  description: string;
-  image: string;
-}
 
 const Book = (props: BookProps) => {
   const dispatch = useDispatch();

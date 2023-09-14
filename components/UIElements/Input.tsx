@@ -1,17 +1,10 @@
 import React, { useState, ChangeEvent } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateInputValue } from '../../store/inputSlice';
+import { InputProps } from '../../types/inputTypes';
 import styles from './Input.module.css';
 
-interface InputProps {
-  id: string;
-  label: string;
-  type: string;
-  placeholder?: string;
-  originValue?: string | number;
-}
-
-const Input: React.FC<InputProps> = (props) => {
+const Input = (props: InputProps) => {
   const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState(props.originValue || '');
 

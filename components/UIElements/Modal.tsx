@@ -4,18 +4,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addBook } from '../../store/bookSlice';
 import { cleanInputValue } from '../../store/inputSlice';
 
+import { ModalProps } from '../../types/modalTypes';
+
 import Button from './Button';
 import Input from './Input';
 import styles from './Modal.module.css';
-
-interface ModalProps {
-  input?: { [key: string]: string | number };
-  show?: boolean;
-  onCancel?: (event: any) => void;
-  onAdd?: (event: any) => void;
-  onUpdate?: (event: any) => void;
-  title: string;
-}
 
 const ModalOverlay = (props: ModalProps) => {
   const dispatch = useDispatch();

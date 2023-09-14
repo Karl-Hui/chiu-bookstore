@@ -1,10 +1,6 @@
-import styles from './Button.module.css';
+import { ButtonProps } from '../../types/buttonTypes';
 
-interface ButtonProps {
-  onClick?: (event: any) => void;
-  text: string;
-  danger?: boolean;
-}
+import styles from './Button.module.css';
 
 const Button = (props: ButtonProps) => {
   return (
