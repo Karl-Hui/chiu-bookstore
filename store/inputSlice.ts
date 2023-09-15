@@ -27,13 +27,7 @@ export const inputSlice = createSlice({
       };
     },
     cleanInputValue(state, action) {
-      state.inputValue = {
-        id: '',
-        name: '',
-        price: 0,
-        category: '',
-        description: '',
-      };
+      state.inputValue = initialState.inputValue;
     },
   },
 });

@@ -1,7 +1,9 @@
+import { v4 as uuidv4 } from 'uuid';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { cleanInputValue } from '../store/inputSlice';
+import { setInitValue, cleanInputValue } from '../store/inputSlice';
+import { addBook, updateBook } from '../store/bookSlice';
 
 import Button from '../components/UIElements/Button';
 import AllBook from '../components/AllBooks';
@@ -9,32 +11,70 @@ import Modal from '../components/UIElements/Modal';
 
 const Index = () => {
   const dispatch = useDispatch();
-  const [showAddBook, setShowAddBook] = useState(false);
+  const [modalControl, setModalControl] = useState({
+    show: false,
+    title: '',
+    action: '',
+  });
 
-  const modalOnAddHandler = () => {
-    setShowAddBook(false);
-  };
+  const bookList = useSelector((state: any) => state.bookList);
+  const inputBook = useSelector((state: any) => state.inputSlice);
 
-  const modalOnCancelHandler = (event: { preventDefault: () => void }) => {
-    event.preventDefault();
+  const modalOnCancelHandler = () => {
     dispatch(cleanInputValue(''));
-    setShowAddBook(false);
+    setModalControl({ ...modalControl, show: false });
   };
 
-  const addBookButtonHandler = () => {
-    setShowAddBook(true);
+  const showModalHandler = ({
+    id,
+    title,
+    action,
+  }: {
+    id: string | undefined;
+    title: string;
+    action: string;
+  }) => {
+    setModalControl({ title, action, show: true });
+    if (!id || !bookList?.value) return;
+    const selectedBook = bookList.value.find(
+      (book: { id: string }) => book.id === id
+    );
+    dispatch(setInitValue(selectedBook));
+  };
+
+  const onSubmitHandler = (event: React.FormEvent) => {
+    event.preventDefault();
+    if (modalControl.action === 'Add') {
+      const newBookCopy = {
+        ...inputBook.inputValue,
+        id: uuidv4(),
+        image:
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Sunflower_from_Silesia2.jpg/1280px-Sunflower_from_Silesia2.jpg',
+      };
+      dispatch(addBook(newBookCopy));
+      modalOnCancelHandler();
+    }
+    if (modalControl.action === 'Update') {
+      dispatch(updateBook(inputBook));
+      modalOnCancelHandler();
+    }
   };
 
   return (
     <>
       <Modal
         onCancel={modalOnCancelHandler}
-        onAdd={modalOnAddHandler}
-        show={showAddBook}
-        title="New Book"
+        input={inputBook?.inputValue}
+        onSubmitHandler={onSubmitHandler}
+        {...modalControl}
       />
-      <Button onClick={addBookButtonHandler} text={'New Book'}></Button>
-      <AllBook></AllBook>
+      <Button
+        onClick={() =>
+          showModalHandler({ id: '', title: 'New Book', action: 'Add' })
+        }
+        text="New Book"
+      ></Button>
+      <AllBook showModalHandler={showModalHandler} />
     </>
   );
 };

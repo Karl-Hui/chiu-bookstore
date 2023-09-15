@@ -31,9 +31,9 @@
   padding: 20px;
 }
 
-.modal_footer {
+.modal_buttonContainer {
   text-align: right;
-  padding: 10px 20px;
+  padding: 10px 15px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 }

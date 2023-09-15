@@ -7,6 +7,7 @@ const Button = (props: ButtonProps) => {
     <button
       className={`${styles.custom_button} ${props.danger && styles.danger}`}
       onClick={props.onClick}
+      type={props.type}
     >
       <div>{props.text}</div>
     </button>
