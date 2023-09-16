@@ -43,7 +43,7 @@ const Book = (props: BookProps) => {
             src={props.image}
             alt={props.name}
           />
-          <div className={styles.title}>Title: {props.name}</div>
+          <div className={styles.title}>Name: {props.name}</div>
           <div className={styles.price}>Price: {props.price}</div>
           <div className={styles.category}>Category: {props.category}</div>
           <div className={styles.description}>
