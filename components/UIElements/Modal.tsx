@@ -18,7 +18,7 @@ const ModalOverlay = (props: ModalProps) => {
             <div className={styles.modal_body}>
               <Input
                 id="name"
-                label="Name: "
+                label="Title: "
                 type="text"
                 originValue={props.input?.name || ''}
               ></Input>
