@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { setInitValue, cleanInputValue } from '../store/inputSlice';
 import { addBook, updateBook } from '../store/bookSlice';
+import { setIsModalShow } from '../store/modalSlice';
 
 import Button from '../components/UIElements/Button';
 import AllBook from '../components/AllBooks';
@@ -22,6 +23,7 @@ const Index = () => {
 
   const modalOnCancelHandler = () => {
     dispatch(cleanInputValue(''));
+    dispatch(setIsModalShow(false));
     setModalControl({ ...modalControl, show: false });
   };
 
@@ -34,6 +36,7 @@ const Index = () => {
     title: string;
     action: string;
   }) => {
+    dispatch(setIsModalShow(true));
     setModalControl({ title, action, show: true });
     if (!id || !bookList?.value) return;
     const selectedBook = bookList.value.find(

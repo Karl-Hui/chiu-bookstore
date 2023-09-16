@@ -5,6 +5,8 @@ import { ModalProps } from '../../types/modalTypes';
 import Button from '../UIElements/Button';
 import Input from './Input';
 import styles from './Modal.module.css';
+import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 
 const ModalOverlay = (props: ModalProps) => {
   return (
@@ -53,10 +55,12 @@ const ModalOverlay = (props: ModalProps) => {
 };
 
 const Modal: React.FC<ModalProps> = (props) => {
+  const show = useSelector((state) => state.modalSlice.show);
+
   return (
     <>
       <CSSTransition
-        in={props.show}
+        in={show}
         mountOnEnter
         unmountOnExit
         timeout={0}
