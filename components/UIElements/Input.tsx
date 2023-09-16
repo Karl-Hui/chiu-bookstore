@@ -25,6 +25,7 @@ const Input = (props: InputProps) => {
     <div className={styles.input_container}>
       <label htmlFor={props.id}>{props.label}</label>
       <input
+        required
         className={styles.custom_input}
         id={props.id}
         placeholder={props.placeholder}
