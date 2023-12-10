@@ -1,10 +1,20 @@
 import { CSSTransition } from 'react-transition-group';
 
-import { ModalProps } from '../../types/modalTypes';
-
 import Button from '../UIElements/Button';
 import Input from './Input';
 import styles from './Modal.module.css';
+import { InputState, InputValueState } from '@/types/inputTypes';
+
+export interface ModalProps {
+  title: string;
+  action: string;
+  input: InputValueState;
+  show: boolean;
+  onCancel: (event: React.FormEvent) => void;
+  onSubmitHandler: (event: React.FormEvent) => void;
+  onAdd?: (event: React.FormEvent) => void;
+  onUpdate?: (event: React.FormEvent) => void;
+}
 
 const ModalOverlay = (props: ModalProps) => {
   return (
@@ -21,29 +31,38 @@ const ModalOverlay = (props: ModalProps) => {
                 label="Title: "
                 type="text"
                 originValue={props.input?.name || ''}
+                placeholder="Title"
               ></Input>
               <Input
                 id="price"
                 label="Price: "
                 type="number"
                 originValue={props.input?.price || ''}
+                placeholder="Price"
               ></Input>
               <Input
                 id="category"
                 label="Category: "
                 type="text"
                 originValue={props.input?.category || ''}
+                placeholder="Category"
               ></Input>
               <Input
                 id="description"
                 label="Description: "
                 type="text"
                 originValue={props.input?.description || ''}
+                placeholder="Description"
               ></Input>
             </div>
             <div className={styles.modal_buttonContainer}>
-              <Button type="button" onClick={props.onCancel} text="Cancel" />
-              <Button type="submit" text={props.action} />
+              <Button
+                type="button"
+                onClick={props.onCancel}
+                text="Cancel"
+                danger={false}
+              />
+              <Button type="submit" text={props.action} danger={false} />
             </div>
           </form>
         </div>

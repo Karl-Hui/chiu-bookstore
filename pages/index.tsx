@@ -3,45 +3,43 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { setInitValue, cleanInputValue } from '../store/inputSlice';
-import { addBook, updateBook } from '../store/bookSlice';
+import { addBook, setBook, updateBook } from '../store/bookSlice';
 import { setIsModalShow } from '../store/modalSlice';
 
 import Button from '../components/UIElements/Button';
 import AllBook from '../components/AllBooks';
 import Modal from '../components/UIElements/Modal';
+import { RootState, wrapper } from '@/store';
+import { ModalTypes } from '@/types/modalTypes';
 
 const Index = () => {
   const dispatch = useDispatch();
+
   const [modalControl, setModalControl] = useState({
     show: false,
     title: '',
     action: '',
   });
 
-  const bookList = useSelector((state: any) => state.bookList);
-  const inputBook = useSelector((state: any) => state.inputSlice);
+  const bookList = useSelector((state: RootState) => state.bookList);
+  const inputBook = useSelector((state: RootState) => state.inputSlice);
 
   const modalOnCancelHandler = () => {
-    dispatch(cleanInputValue(''));
+    dispatch(cleanInputValue());
     dispatch(setIsModalShow(false));
     setModalControl({ ...modalControl, show: false });
   };
 
-  const showModalHandler = ({
-    id,
-    title,
-    action,
-  }: {
-    id: string | undefined;
-    title: string;
-    action: string;
-  }) => {
+  const showModalHandler = ({ id, title, action }: ModalTypes) => {
     dispatch(setIsModalShow(true));
     setModalControl({ title, action, show: true });
+
     if (!id || !bookList?.value) return;
-    const selectedBook = bookList.value.find(
-      (book: { id: string }) => book.id === id
-    );
+
+    const selectedBook = bookList.value?.find((book) => book.id === id);
+
+    if (!selectedBook) return;
+
     dispatch(setInitValue(selectedBook));
   };
 
@@ -76,6 +74,8 @@ const Index = () => {
           showModalHandler({ id: '', title: 'New Book', action: 'Add' })
         }
         text="New Book"
+        type="button"
+        danger={false}
       ></Button>
       <AllBook showModalHandler={showModalHandler} />
     </>
@@ -83,3 +83,13 @@ const Index = () => {
 };
 
 export default Index;
+
+import { mockBookData } from '../data/data.js';
+
+export const getStaticProps = wrapper.getStaticProps((store) => async () => {
+  store.dispatch(setBook(mockBookData));
+
+  return {
+    props: mockBookData,
+  };
+});

@@ -1,6 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { InputState, InputValueState, UpdateState } from '@/types/inputTypes';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
+const initialState: InputState = {
   inputValue: {
     id: '',
     name: '',
@@ -14,10 +15,10 @@ export const inputSlice = createSlice({
   name: 'inputSlice',
   initialState,
   reducers: {
-    setInitValue(state, action) {
+    setInitValue(state, action: PayloadAction<InputValueState>) {
       state.inputValue = action.payload;
     },
-    updateInputValue(state, action) {
+    updateInputValue(state, action: PayloadAction<UpdateState>) {
       const key = Object.keys(action.payload)[0];
       const value = Object.values(action.payload)[0];
 
@@ -26,7 +27,7 @@ export const inputSlice = createSlice({
         [key]: value,
       };
     },
-    cleanInputValue(state, action) {
+    cleanInputValue(state) {
       state.inputValue = initialState.inputValue;
     },
   },

@@ -1,10 +1,5 @@
-export interface ModalProps {
-  action: string;
-  input?: { [key: string]: string | number };
-  show?: boolean;
-  onCancel?: (event: any) => void;
-  onAdd?: (event: any) => void;
-  onUpdate?: (event: any) => void;
+export interface ModalTypes {
+  id: string | undefined;
   title: string;
-  onSubmitHandler: (event: React.FormEvent) => void;
+  action: string;
 }

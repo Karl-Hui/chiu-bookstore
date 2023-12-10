@@ -1,6 +1,11 @@
-import { ButtonProps } from '../../types/buttonTypes';
-
 import styles from './Button.module.css';
+
+export interface ButtonProps {
+  text: string;
+  danger: boolean;
+  type: 'submit' | 'button' | 'reset';
+  onClick?: (event: React.FormEvent) => void;
+}
 
 const Button = (props: ButtonProps) => {
   return (
