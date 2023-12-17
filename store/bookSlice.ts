@@ -1,7 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { InputState } from '@/types/inputTypes.jsx';
 import { HYDRATE } from 'next-redux-wrapper';
-import { access } from 'fs';
 
 interface Book {
   id: string;
@@ -24,6 +23,7 @@ export const bookSlice = createSlice({
   initialState,
   reducers: {
     setBook: (state, action: PayloadAction<BookState>) => {
+      console.log('hello setBook');
       state.value = action.payload.value;
     },
     addBook: (state, action: PayloadAction<Book>) => {
@@ -49,6 +49,7 @@ export const bookSlice = createSlice({
   },
   extraReducers: {
     [HYDRATE]: (state, action) => {
+      console.log('hello HYDRATE');
       state.value = action.payload.bookList.value;
     },
   },

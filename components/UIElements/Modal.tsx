@@ -71,7 +71,7 @@ const ModalOverlay = (props: ModalProps) => {
   );
 };
 
-const Modal: React.FC<ModalProps> = (props) => {
+const Modal = (props: ModalProps) => {
   return (
     <>
       <CSSTransition
